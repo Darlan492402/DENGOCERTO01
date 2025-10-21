@@ -1,0 +1,112 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String   @unique
+  senha     String   // Hashed password
+  role      String   @default("user") // "user" or "admin"
+  criadoEm  DateTime @default(now())
+  
+  // Relations
+  pedidos   Pedido[]
+  carrinhos Carrinho[]
+}
+
+model Categoria {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  descricao   String?
+  parentId    Int?     // For hierarchical categories
+  criadoEm    DateTime @default(now())
+  
+  // Relations
+  parent      Categoria?  @relation("SubCategorias", fields: [parentId], references: [id])
+  subCategorias Categoria[] @relation("SubCategorias")
+  produtos    Produto[]
+}
+
+model Produto {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  descricao   String
+  preco       Float
+  estoque     Int
+  categoria   String
+  categoriaId Int?
+  imagemUrl   String?
+  ativo       Boolean  @default(true)
+  desconto    Float?   @default(0)
+  promocaoAtiva Boolean @default(false)
+  dataValidade DateTime?
+  criadoEm    DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  
+  // Relations
+  itensPedido ItemPedido[]
+  categoriaRelacao Categoria? @relation(fields: [categoriaId], references: [id])
+  itensCarrinho ItemCarrinho[]
+}
+
+model Pedido {
+  id              Int      @id @default(autoincrement())
+  usuarioId       Int
+  status          String   @default("pendente") // pendente, pago, enviado, entregue, cancelado
+  statusPagamento String   @default("pendente") // pendente, pago, falhou
+  metodoPagamento String?  // cartao, boleto, pix, etc
+  total           Float
+  enderecoEntrega String
+  criadoEm        DateTime @default(now())
+  atualizadoEm    DateTime @updatedAt
+  
+  // Relations
+  usuario         Usuario  @relation(fields: [usuarioId], references: [id])
+  itens           ItemPedido[]
+}
+
+model ItemPedido {
+  id         Int     @id @default(autoincrement())
+  pedidoId   Int
+  produtoId  Int
+  quantidade Int
+  precoUnit  Float
+  descontoItem Float? @default(0)
+  
+  // Relations
+  pedido     Pedido  @relation(fields: [pedidoId], references: [id])
+  produto    Produto @relation(fields: [produtoId], references: [id])
+}
+
+model Carrinho {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  criadoEm    DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  // Relations
+  usuario     Usuario @relation(fields: [usuarioId], references: [id])
+  itens       ItemCarrinho[]
+  
+  @@unique([usuarioId])
+}
+
+model ItemCarrinho {
+  id          Int     @id @default(autoincrement())
+  carrinhoId  Int
+  produtoId   Int
+  quantidade  Int
+  precoUnit   Float
+  
+  // Relations
+  carrinho    Carrinho @relation(fields: [carrinhoId], references: [id], onDelete: Cascade)
+  produto     Produto  @relation(fields: [produtoId], references: [id])
+  
+  @@unique([carrinhoId, produtoId])
+}

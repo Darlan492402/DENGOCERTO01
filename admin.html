@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Caixinha de Dengo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <img src="public/logo.png" alt="Dengo na Caixinha">
+            </a>
+            
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="produtos.html" class="nav-link">Produtos</a>
+                <a href="admin.html" class="nav-link active">Admin</a>
+            </nav>
+            
+            <div class="header-actions">
+                <!-- Added logout button that clears localStorage -->
+                <button class="btn btn-outline btn-sm" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-content">
+        <div class="container admin-container">
+            <div class="page-header">
+                <h1 class="page-title">Gerenciar Produtos</h1>
+                <p class="page-subtitle"><span id="productCount">0</span> produtos cadastrados</p>
+            </div>
+
+            <div class="admin-actions">
+                <button class="btn btn-primary" onclick="showAddProductModal()">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Novo Produto
+                </button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Novo Produto</h2>
+                <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            </div>
+            <form id="productForm" class="form">
+                <input type="hidden" id="productId">
+                
+                <div class="form-group">
+                    <label for="productName" class="form-label">Nome do Produto</label>
+                    <input type="text" id="productName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription" class="form-label">Descrição</label>
+                    <textarea id="productDescription" class="form-textarea" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice" class="form-label">Preço (R$)</label>
+                        <input type="number" id="productPrice" class="form-input" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productStock" class="form-label">Estoque</label>
+                        <input type="number" id="productStock" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productTheme" class="form-label">Tema</label>
+                        <select id="productTheme" class="form-input" required>
+                            <option value="">Selecione</option>
+                            <option value="Dinossauros">Dinossauros</option>
+                            <option value="Espaço">Espaço</option>
+                            <option value="Princesas">Princesas</option>
+                            <option value="Super-heróis">Super-heróis</option>
+                            <option value="Animais">Animais</option>
+                            <option value="Fundo do Mar">Fundo do Mar</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productAgeRange" class="form-label">Faixa Etária</label>
+                        <select id="productAgeRange" class="form-input" required>
+                            <option value="">Selecione</option>
+                            <option value="0-2 anos">0-2 anos</option>
+                            <option value="3-5 anos">3-5 anos</option>
+                            <option value="6-8 anos">6-8 anos</option>
+                            <option value="9+ anos">9+ anos</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage" class="form-label">URL da Imagem</label>
+                    <input type="text" id="productImage" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="productSubscription">
+                        <span>Produto de Assinatura</span>
+                    </label>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeProductModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Caixinha de Dengo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="admin.js"></script>
+    <script>
+        function checkAdminAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const userRole = localStorage.getItem('userRole');
+            
+            if (!isLoggedIn || userRole !== 'admin') {
+                alert('Acesso negado. Você precisa fazer login como administrador.');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('isLoggedIn');
+            alert('Logout realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+        
+        // Check authentication when page loads
+        checkAdminAuth();
+    </script>
+</body>
+</html>

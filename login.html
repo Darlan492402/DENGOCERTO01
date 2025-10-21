@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Caixinha de Dengo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <a href="index.html" class="login-logo">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span>Caixinha de Dengo</span>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title-large">Entrar</h1>
+                    <p class="card-description">Digite seu email e senha para acessar sua conta</p>
+                </div>
+                <div class="card-content">
+                    <form class="form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" id="password" name="password" class="form-input" required>
+                        </div>
+                        
+                        <div id="errorMessage" class="error-message" style="display: none;"></div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+                        
+                        <div class="login-footer">
+                            Não tem uma conta? <a href="cadastro.html" class="link">Cadastre-se</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check for admin credentials
+            if (email === 'admin@caixinha.com' && password === 'admin123') {
+                // Store admin status in localStorage
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userRole', 'admin');
+                localStorage.setItem('isLoggedIn', 'true');
+                alert('Login de administrador realizado com sucesso!');
+                window.location.href = 'admin.html';
+            } else if (email && password) {
+                // Regular user login
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userRole', 'user');
+                localStorage.setItem('isLoggedIn', 'true');
+                alert('Login realizado com sucesso!');
+                window.location.href = 'index.html';
+            } else {
+                const errorMsg = document.getElementById('errorMessage');
+                errorMsg.textContent = 'Email ou senha inválidos.';
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

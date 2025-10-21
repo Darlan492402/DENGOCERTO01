@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados do Quiz - Caixinha de Dengo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <img src="public/logo.png" alt="Caixinha de Dengo">
+            </a>
+            
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="produtos.html" class="nav-link">Produtos</a>
+                <a href="sobre.html" class="nav-link">Quem Somos</a>
+                <a href="quiz.html" class="nav-link active">Quiz</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="login.html" class="icon-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <div class="page-header">
+                <div class="badge">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Recomendações Personalizadas
+                </div>
+                <h1 class="page-title">Encontramos as Caixinhas Perfeitas!</h1>
+                <p class="page-subtitle">Baseado nas suas respostas, selecionamos produtos que vão encantar seu filho.</p>
+            </div>
+
+            <div class="products-grid" id="resultsGrid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+
+            <div class="cta-section">
+                <p class="text-muted">Não encontrou o que procurava?</p>
+                <div class="button-group">
+                    <a href="quiz.html" class="btn btn-outline">Refazer Quiz</a>
+                    <a href="produtos.html" class="btn btn-primary">Ver Todos os Produtos</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span>Caixinha de Dengo</span>
+                    </div>
+                    <p class="footer-description">Caixas personalizadas com amor para o desenvolvimento e diversão das crianças.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Produtos</h3>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html">Todas as Caixas</a></li>
+                        <li><a href="assinatura.html">Assinatura Mensal</a></li>
+                        <li><a href="quiz.html">Faça o Quiz</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Empresa</h3>
+                    <ul class="footer-links">
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Caixinha de Dengo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get quiz results from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const age = urlParams.get('age');
+        const interests = urlParams.get('interests')?.split(',') || [];
+        const preferences = urlParams.get('preferences');
+
+        // Mock products data
+        const allProducts = [
+            {
+                id: 1,
+                name: "Caixinha Dinossauros",
+                description: "Explore o mundo pré-histórico com dinossauros incríveis",
+                price: 89.90,
+                image: "public/dinosaur-toys-box.jpg",
+                theme: "Dinossauros",
+                ageRange: "3-8 anos",
+                interests: ["dinosaurs"]
+            },
+            {
+                id: 2,
+                name: "Caixinha Fazendinha",
+                description: "Conheça os animais da fazenda e aprenda sobre a natureza",
+                price: 79.90,
+                image: "public/farm-animals-toys.jpg",
+                theme: "Animais",
+                ageRange: "2-6 anos",
+                interests: ["animals"]
+            },
+            {
+                id: 3,
+                name: "Caixinha Espaço",
+                description: "Viaje pelo universo e descubra planetas e estrelas",
+                price: 94.90,
+                image: "public/space-toys-kids.jpg",
+                theme: "Espaço",
+                ageRange: "4-10 anos",
+                interests: ["space"]
+            },
+            {
+                id: 4,
+                name: "Caixinha Fundo do Mar",
+                description: "Mergulhe no oceano e conheça a vida marinha",
+                price: 84.90,
+                image: "public/ocean-sea-toys.jpg",
+                theme: "Oceano",
+                ageRange: "3-8 anos",
+                interests: ["ocean"]
+            },
+            {
+                id: 5,
+                name: "Caixinha Princesas",
+                description: "Entre no mundo mágico dos contos de fada",
+                price: 89.90,
+                image: "public/princess-toys-box.jpg",
+                theme: "Princesas",
+                ageRange: "3-8 anos",
+                interests: ["princesses"]
+            },
+            {
+                id: 6,
+                name: "Caixinha Super-Heróis",
+                description: "Aventuras emocionantes com seus heróis favoritos",
+                price: 94.90,
+                image: "public/superhero-toys-kids.jpg",
+                theme: "Super-Heróis",
+                ageRange: "4-10 anos",
+                interests: ["superheroes"]
+            }
+        ];
+
+        // Filter products based on quiz answers
+        let filteredProducts = allProducts.filter(product => {
+            // Check if product matches any selected interests
+            if (interests.length > 0) {
+                return product.interests.some(interest => interests.includes(interest));
+            }
+            return true;
+        });
+
+        // If no matches, show all products
+        if (filteredProducts.length === 0) {
+            filteredProducts = allProducts;
+        }
+
+        // Display products
+        const resultsGrid = document.getElementById('resultsGrid');
+        filteredProducts.forEach(product => {
+            const productCard = `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                        <div class="product-badge">${product.theme}</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-meta">
+                            <span class="product-age">${product.ageRange}</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">R$ ${product.price.toFixed(2)}</div>
+                            <a href="produto-detalhes.html?id=${product.id}" class="btn btn-primary btn-sm">Ver Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsGrid.innerHTML += productCard;
+        });
+    </script>
+</body>
+</html>

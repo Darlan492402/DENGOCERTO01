@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta - Caixinha de Dengo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <img src="public/logo.png" alt="Caixinha de Dengo">
+            </a>
+            
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="produtos.html" class="nav-link">Produtos</a>
+                <a href="sobre.html" class="nav-link">Quem Somos</a>
+                <a href="quiz.html" class="nav-link">Quiz</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="login.html" class="icon-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Minha Conta</h1>
+                <p class="page-subtitle">Gerencie suas informações e pedidos</p>
+            </div>
+
+            <div class="account-grid">
+                <div class="account-card">
+                    <div class="account-card-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="account-card-title">Perfil</h3>
+                    <p class="account-card-description">Atualize suas informações pessoais</p>
+                    <a href="#" class="btn btn-outline btn-sm">Editar Perfil</a>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-card-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                        </svg>
+                    </div>
+                    <h3 class="account-card-title">Assinaturas</h3>
+                    <p class="account-card-description">Gerencie suas assinaturas ativas</p>
+                    <a href="#" class="btn btn-outline btn-sm">Ver Assinaturas</a>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-card-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="account-card-title">Pedidos</h3>
+                    <p class="account-card-description">Acompanhe seus pedidos</p>
+                    <a href="#" class="btn btn-outline btn-sm">Ver Pedidos</a>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-card-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="account-card-title">Configurações</h3>
+                    <p class="account-card-description">Ajuste suas preferências</p>
+                    <a href="#" class="btn btn-outline btn-sm">Configurar</a>
+                </div>
+            </div>
+
+            <div class="logout-section">
+                <button class="btn btn-outline" onclick="logout()">Sair da Conta</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-brand">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span>Caixinha de Dengo</span>
+                    </div>
+                    <p class="footer-description">Caixas personalizadas com amor para o desenvolvimento e diversão das crianças.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Produtos</h3>
+                    <ul class="footer-links">
+                        <li><a href="produtos.html">Todas as Caixas</a></li>
+                        <li><a href="assinatura.html">Assinatura Mensal</a></li>
+                        <li><a href="quiz.html">Faça o Quiz</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Empresa</h3>
+                    <ul class="footer-links">
+                        <li><a href="sobre.html">Quem Somos</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Caixinha de Dengo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!user) {
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
